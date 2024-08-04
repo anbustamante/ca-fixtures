@@ -6,8 +6,9 @@ import com.club_app.fixture.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class FixtureService {
@@ -27,8 +28,25 @@ public class FixtureService {
 
     }
 
-    public ArrayList<PartidoDto> getByDate(Date date) {
-        //TODO: implementar que se busquen los partidos a partir de esa fecha 2 dias antes y 2 dias despues.
+    public List<PartidoDto> getByDate(String fechaObjetivo) {
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate fecha = LocalDate.parse(fechaObjetivo,formatter);
+        LocalDate fechaInicial = fecha.minusDays(1);
+        LocalDate fechaFinal = fecha.plusDays(1);
+
+        String fechaInicialString = fechaInicial.toString();
+        String fechaFinalString = fechaFinal.toString();
+
+        return fixturedao.findByDate(fechaInicialString,fechaFinalString);
+
+    }
+
+    public List<PartidoDto> getByCategory(String categoria) {
+        return fixturedao.findByCategoria(categoria);
+    }
+
+    public List<PartidoDto> getAll() {
+        return fixturedao.findAll();
     }
 }
