@@ -1,5 +1,7 @@
 package com.club_app.fixture.exceptions;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 
 @RestControllerAdvice
@@ -49,7 +52,14 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ExceptionDto> handleConstraintViolation(final ConstraintViolationException exception){
+        final ExceptionDto errorResponse = new ExceptionDto();
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST);
+        errorResponse.setException(exception.getClass().getSimpleName());
+        errorResponse.setMessage(exception.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 
 
 }

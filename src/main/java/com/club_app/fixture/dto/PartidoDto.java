@@ -2,6 +2,7 @@ package com.club_app.fixture.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -17,19 +18,19 @@ public class PartidoDto {
     @Column(name = "ID")
     Long id;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "LOCALIA")
     String localia;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "RIVAL")
     String rival;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "FECHA")
     String fecha;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "CATEGORIA")
     String categoria;
 }
