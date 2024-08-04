@@ -34,9 +34,25 @@ public class FixtureController {
         return ResponseEntity.ok(fixtureService.getByCategory(category));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<PartidoDto>> getAll(){
         return ResponseEntity.ok(fixtureService.getAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<PartidoDto> submitPartido(@RequestBody PartidoDto partido){
+        return ResponseEntity.ok(fixtureService.submitPartido(partido));
+    }
+
+    @PutMapping
+    public ResponseEntity<PartidoDto> putPartido(@RequestBody PartidoDto partido){
+        return ResponseEntity.ok(fixtureService.putPartido(partido));
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Void> deletePartido(@PathVariable Long id){
+        fixtureService.deletePartido(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

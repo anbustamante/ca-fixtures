@@ -30,6 +30,7 @@ public class RestExceptionHandler {
         errorResponse.setMessage(exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(IOException.class)
     public ResponseEntity<ExceptionDto> handleIOException(final IOException exception) {
         final ExceptionDto errorResponse = new ExceptionDto();
@@ -39,7 +40,6 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ExceptionDto> handleThrowable(final Throwable exception) {
         exception.printStackTrace();
@@ -48,5 +48,8 @@ public class RestExceptionHandler {
         errorResponse.setException(exception.getClass().getSimpleName());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+
 
 }

@@ -49,4 +49,25 @@ public class FixtureService {
     public List<PartidoDto> getAll() {
         return fixturedao.findAll();
     }
+
+    public PartidoDto submitPartido(PartidoDto partido) {
+        return fixturedao.save(partido);
+    }
+
+    public PartidoDto putPartido(PartidoDto partido) {
+        if (fixturedao.findById(partido.getId()).isPresent()){
+            return fixturedao.save(partido);
+        } else {
+            throw new NotFoundException("No se encontro partido con id: " + partido.getId());
+        }
+    }
+
+
+    public void deletePartido(Long id) {
+        if (fixturedao.findById(id).isPresent()){
+            fixturedao.deleteById(id);
+        } else {
+            throw new NotFoundException("No se encontro partido con id: " + id);
+        }
+    }
 }
