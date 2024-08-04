@@ -43,7 +43,7 @@ public class FixtureService {
     }
 
     public List<PartidoDto> getByCategory(String categoria) {
-        return fixturedao.findByCategoria(categoria);
+        return fixturedao.findByCategoria(categoria.toUpperCase());
     }
 
     public List<PartidoDto> getAll() {
@@ -51,10 +51,14 @@ public class FixtureService {
     }
 
     public PartidoDto crearPartido(PartidoDto partido) {
+        partido.setCategoria(partido.getCategoria().toUpperCase());
         return fixturedao.save(partido);
     }
 
     public List<PartidoDto> crearPartidos(List<PartidoDto> partidos) {
+        for (PartidoDto partido : partidos) {
+            partido.setCategoria(partido.getCategoria().toUpperCase());
+        }
         return fixturedao.saveAll(partidos);
     }
 

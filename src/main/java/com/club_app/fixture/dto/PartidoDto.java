@@ -1,10 +1,9 @@
 package com.club_app.fixture.dto;
 
+import com.club_app.fixture.annotation.CategoryConstraint;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -12,6 +11,7 @@ import lombok.Data;
 @Table(name = "PARTIDOS")
 @Valid
 public class PartidoDto {
+    //TODO: Implenetar custom validations
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,8 @@ public class PartidoDto {
     @Column(name = "FECHA")
     String fecha;
 
-    @NotBlank
+
+    @CategoryConstraint
     @Column(name = "CATEGORIA")
     String categoria;
 }
