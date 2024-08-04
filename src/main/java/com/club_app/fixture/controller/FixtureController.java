@@ -40,8 +40,13 @@ public class FixtureController {
     }
 
     @PostMapping
-    public ResponseEntity<PartidoDto> submitPartido(@RequestBody PartidoDto partido){
-        return ResponseEntity.ok(fixtureService.submitPartido(partido));
+    public ResponseEntity<PartidoDto> crearPartido(@RequestBody PartidoDto partido){
+        return ResponseEntity.ok(fixtureService.crearPartido(partido));
+    }
+
+    @PostMapping("/multiple")
+    public ResponseEntity<List<PartidoDto>> crearPartidos(@RequestBody List<PartidoDto> partidos){
+        return ResponseEntity.ok(fixtureService.crearPartidos(partidos));
     }
 
     @PutMapping

@@ -50,8 +50,12 @@ public class FixtureService {
         return fixturedao.findAll();
     }
 
-    public PartidoDto submitPartido(PartidoDto partido) {
+    public PartidoDto crearPartido(PartidoDto partido) {
         return fixturedao.save(partido);
+    }
+
+    public List<PartidoDto> crearPartidos(List<PartidoDto> partidos) {
+        return fixturedao.saveAll(partidos);
     }
 
     public PartidoDto putPartido(PartidoDto partido) {
