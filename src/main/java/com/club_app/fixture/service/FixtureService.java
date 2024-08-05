@@ -6,8 +6,10 @@ import com.club_app.fixture.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 @Service
@@ -30,7 +32,7 @@ public class FixtureService {
 
     public List<PartidoDto> getByDate(String fechaObjetivo) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate fecha = LocalDate.parse(fechaObjetivo,formatter);
         LocalDate fechaInicial = fecha.minusDays(1);
         LocalDate fechaFinal = fecha.plusDays(1);
@@ -50,6 +52,17 @@ public class FixtureService {
         return fixturedao.findAll();
     }
 
+    public List<PartidoDto> getNextWeekend(){
+
+        final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+        LocalDate hoy = LocalDate.now();
+        LocalDate proxSabado = hoy.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+        String proxSabadoFormated = proxSabado.format(FORMATTER);
+
+        return getByDate(proxSabadoFormated);
+
+    }
     public PartidoDto crearPartido(PartidoDto partido) {
         partido.setCategoria(partido.getCategoria().toUpperCase());
         return fixturedao.save(partido);
