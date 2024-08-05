@@ -34,6 +34,11 @@ public class FixtureController {
         return ResponseEntity.ok(fixtureService.getByCategory(category));
     }
 
+    @GetMapping("/nextWeekend")
+    public ResponseEntity<List<PartidoDto>> getNextWeekend(){
+        return ResponseEntity.ok(fixtureService.getNextWeekend());
+    }
+
     @GetMapping
     public ResponseEntity<List<PartidoDto>> getAll(){
         return ResponseEntity.ok(fixtureService.getAll());

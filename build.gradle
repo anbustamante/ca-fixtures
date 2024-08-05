@@ -30,6 +30,8 @@ dependencies {
 	implementation 'org.apache.logging.log4j:log4j-api'
 	implementation 'org.apache.logging.log4j:log4j-core'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-config'
 }
 
 tasks.named('test') {

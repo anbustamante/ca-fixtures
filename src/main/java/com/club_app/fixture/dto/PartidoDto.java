@@ -11,7 +11,6 @@ import lombok.Data;
 @Table(name = "PARTIDOS")
 @Valid
 public class PartidoDto {
-    //TODO: Implenetar custom validations
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +28,6 @@ public class PartidoDto {
     @NotBlank
     @Column(name = "FECHA")
     String fecha;
-
 
     @CategoryConstraint
     @Column(name = "CATEGORIA")
