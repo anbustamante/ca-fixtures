@@ -16,6 +16,9 @@ import java.util.List;
 public class FixtureService {
 
     FixtureDao fixturedao;
+
+    private static final String IDNOTFOUND = "No se encontro partido con id: ";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
     @Autowired
     public FixtureService(FixtureDao fixturedao) {
         this.fixturedao = fixturedao;
@@ -25,14 +28,14 @@ public class FixtureService {
         if (fixturedao.findById(id).isPresent()){
             return fixturedao.findById(id).get();
         }else {
-            throw new NotFoundException("No se encontro partido con id: " + id);
+            throw new NotFoundException(IDNOTFOUND + id);
         }
 
     }
 
     public List<PartidoDto> getByDate(String fechaObjetivo) {
 
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMATTER.toString());
         LocalDate fecha = LocalDate.parse(fechaObjetivo,formatter);
         LocalDate fechaInicial = fecha.minusDays(1);
         LocalDate fechaFinal = fecha.plusDays(1);
@@ -53,8 +56,6 @@ public class FixtureService {
     }
 
     public List<PartidoDto> getNextWeekend(){
-
-        final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
 
         LocalDate hoy = LocalDate.now();
         LocalDate proxSabado = hoy.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
@@ -79,7 +80,7 @@ public class FixtureService {
         if (fixturedao.findById(partido.getId()).isPresent()){
             return fixturedao.save(partido);
         } else {
-            throw new NotFoundException("No se encontro partido con id: " + partido.getId());
+            throw new NotFoundException(IDNOTFOUND + partido.getId());
         }
     }
 
@@ -88,7 +89,7 @@ public class FixtureService {
         if (fixturedao.findById(id).isPresent()){
             fixturedao.deleteById(id);
         } else {
-            throw new NotFoundException("No se encontro partido con id: " + id);
+            throw new NotFoundException(IDNOTFOUND + id);
         }
     }
 }

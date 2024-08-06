@@ -1,6 +1,7 @@
 package com.club_app.fixture.annotation.validation;
 
 import com.club_app.fixture.annotation.CategoryConstraint;
+import com.club_app.fixture.enums.CATEGORIAS;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -12,14 +13,17 @@ public class CategoryValidator implements ConstraintValidator<CategoryConstraint
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        final Set<String> ALLOWED_VALUES = new HashSet<>(Arrays.asList(
-                "RUGBY_PS", "HOCKEY_PS", "RUGBY_M19", "RUGBY_M17", "HOCKEY_5TA"
-        ));
+
 
         if (s == null || s.isEmpty()) {
             return false;
         }
 
-        return ALLOWED_VALUES.contains(s.toUpperCase());
+        try{
+            CATEGORIAS.valueOf(s.toUpperCase());
+            return true;
+        }catch(IllegalArgumentException e){
+            return false;
+        }
     }
 }
