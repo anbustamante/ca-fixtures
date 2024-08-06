@@ -9,6 +9,7 @@ import com.club_app.fixture.service.FixtureService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/fixture")
 public class FixtureController {
 
